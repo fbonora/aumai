@@ -1,0 +1,47 @@
+{% extends "responsabile/home_responsabile.html" %}
+
+{% block spese %}
+<nav class="navbar is-transparent" role="navigation" aria-label="dropdown navigation">
+    <a class="navbar-item" href="{{ url_for('responsabile.spesa_aziendale', panel='spese') }}">
+        <i class="fas fa-plus-circle fa-lg"></i>
+    </a>
+</nav>
+
+
+<div class="columns">
+    <div class="column">
+        <table class="table is-stripped is-narrow has-background-grey-light is-fullwidth">
+            <thead>
+            <tr>
+                <th>Data</th>
+                <th>Cassa</th>
+                <th>Importo</th>
+                <th>Causale</th>
+                <th>Descrizione</th>
+                <th>Km</th>
+                <th>Targa</th>
+                <th colspan="2"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for spesa in lista_spese %}
+            <tr>
+                <td>{{ spesa.data }}</td>
+                <td>{{ spesa.cassa.matricola }}</td>
+                <td>{{ spesa.importo }}</td>
+                <td>{{ spesa.causale }}</td>
+                <td>{{ spesa.descrizione }}</td>
+                <td>{{ spesa.km }}</td>
+                <td>{{ spesa.targa }}</td>
+                <td><a href="{{ url_for('responsabile.modifica_spesa', id=spesa.id) }}" class="fas fa-edit"></a></td>
+                <td>
+                    <a href="{{ url_for('responsabile.elimina_spesa', id=spesa.id) }}" class="fas fa-trash-alt"></a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

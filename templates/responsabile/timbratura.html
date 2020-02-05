@@ -1,0 +1,46 @@
+{% extends "responsabile/home_responsabile.html" %}
+
+{% block timbratura %}
+<div class="field"></div>
+{% from "form/_cella.html" import render_cell %}
+<form method="post" action="{{ url_for('responsabile.timbratura', id=form.id_timbratura,  panel='timbrature') }}">
+    <div class="columns">
+        <div class="column">
+            {{ render_cell(form.dipendente) }}
+        </div>
+        <div class="column">
+            {{ render_cell(form.data) }}
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            {{ render_cell(form.ora_inizio) }}
+        </div>
+        <div class="column">
+            {{ render_cell(form.ora_fine) }}
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            {{ render_cell(form.pausa) }}
+        </div>
+        <div class="column">
+            {{ render_cell(form.assenza) }}
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            {{ render_cell(form.descrizione) }}
+        </div>
+        <div class="column">
+
+        </div>
+
+    </div>
+    <div class="columns">
+        <div class="column is-1">
+            {{ render_cell(form.submit) }}
+        </div>
+    </div>
+</form>
+{% endblock %}

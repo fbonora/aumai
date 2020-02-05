@@ -1,0 +1,75 @@
+{% extends "responsabile/home_responsabile.html" %}
+
+{% block chiamate %}
+<div class="columns">
+    <div class="column is-1"></div>
+    <div class="column is-2">
+        <div></div>
+    </div>
+    <div class="column is-1"></div>
+</div>
+</form>
+{% from "form/_cella.html" import render_cell %}
+<form method="post" action="{{ url_for('responsabile.chiamata', id=form.chiamata_id.data) }}">
+    <div class="columns">
+        <div class="column is-1"></div>
+        <div class="column">
+            {{ render_cell(form.negozio) }}
+        </div>
+        <div class="column">
+            {{ render_cell(form.apparecchiatura) }}
+        </div>
+        <div class="column">
+            {{ render_cell(form.descrizione) }}
+        </div>
+        <div class="column is-1"></div>
+    </div>
+
+    {{ render_cell(form.descrizione) }}
+    {{ render_cell(form.data_apertura) }}
+    {{ render_cell(form.ora_inizio) }}
+    {{ render_cell(form.data_chiusura) }}
+    {{ render_cell(form.ora_fine) }}
+    {{ render_cell(form.esito) }}
+    <script>
+            let negozio_selezionato = document.getElementById('negozio');
+            let apparecchiatura_selezionata = document.getElementById('apparecchiatura');
+            let fornitore_selezionata = document.getElementById('fornitore');
+
+            negozio_selezionato.onchange = function() {
+                negozio = negozio_selezionato.value;
+                fetch('apparecchiature_negozio/' + negozio).then(function(response) {
+                        response.json().then(function(data) {
+                            let optionHTML = '';
+                            for( let app of data.apparecchiature) {
+                                optionHTML += '<option value="' + app.id + '">' + app.descrizione + '</option>';
+                            };
+                            apparecchiatura_selezionata.innerHTML = optionHTML
+                        });
+                    });
+            }
+
+            apparecchiatura_selezionata.onchange = function() {
+                apparecchiatura = apparecchiatura_selezionata.value;
+                fetch('apparecchiature_fornitore/' + apparecchiatura).then(function(response) {
+                        response.json().then(function(data) {
+                            let optionHTML = '';
+                            for( let app of data.apparecchiature) {
+                                optionHTML += '<option value="' + app.id + '">' + app.descrizione + '</option>';
+                            };
+                            apparecchiatura_selezionata.innerHTML = optionHTML
+                        });
+                    });
+            }
+
+
+    </script>
+    <div class="columns">
+        <div class="column is-1"></div>
+        <div class="column is-2">
+            <div>{{ form.submit }}</div>
+        </div>
+        <div class="column is-1"></div>
+    </div>
+</form>
+{% endblock %}

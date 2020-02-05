@@ -1,0 +1,16 @@
+{% extends "responsabile/home_responsabile.htmll" %}
+
+{% block spesa_personale %}
+    <div class="field"></div>
+    {% from "form/_cella.html" import render_cell %}
+    <form method="post" action="{{ url_for('responsabile.spesa_personale') }}">
+        {{ render_cell(form.dipendente) }}
+        {{ render_cell(form.causale) }}
+        {{ render_cell(form.descrizione) }}
+        {{ render_cell(form.data) }}
+        {{ render_cell(form.inizio) }}
+        {{ render_cell(form.fine) }}
+        {{ render_cell(form.importo) }}
+        {{ render_cell(form.submit) }}
+    </form>
+{% endblock %}

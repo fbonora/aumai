@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% from 'form/_cella.html' import render_cell %}
+
+{% block content %}
+<div class="column is-4 is-offset-4">
+    <h3 class="title">Selezione ruolo</h3>
+    <div class="box">
+        <form method="post" action="{{ url_for('main.select_role') }}">
+            {{ render_cell(form.ruolo) }}
+
+            <button class="button is-block is-info is-small is-fullwidth">Aggiungi</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

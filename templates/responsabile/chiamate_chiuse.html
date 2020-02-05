@@ -1,0 +1,68 @@
+{% extends "responsabile/home_responsabile.html" %}
+
+{% block chiamate %}
+    <div class="columns">
+        <div class="column is-2"></div>
+        {% for item in ['Apparecchiatura','Descrizione problema','Data','Apertura','Chiusura', 'Esito', 'Fornitore'] %}
+            <div class="column {%if 'Descrizione problema' in item %}is-2{% else %}is-1{% endif %} is-size-1">
+                <div class="field-label is-small has-text-left">
+                    <label class="label">{{ item }}</label>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="column"></div>
+    </div>
+    {% for chiamata in lista_chiamate %}
+        <div class="columns">
+            <div class="column is-1">
+                <form action="" method="post">
+                    <button class="button is-small"
+                            name="id_chiamata" value="{{ chiamata.id }}"
+                            formaction="{{ url_for('responsabile.modifica_chiamata') }}">
+                        Modifica
+                    </button>
+                </form>
+            </div>
+            <div class="column is-1">
+                <form action="" method="post">
+                    <button class="button is-small"
+                            name="id_chiudi_chiamata" value="{{ chiamata.id }}"
+                            formaction="{{ url_for('responsabile.elimina_chiamata', id=chiamata.id) }}">
+                        Elimina
+                    </button>
+                </form>
+            </div>
+            <div class="column is-1 is-size-1">
+                <div class="field-label is-small has-text-left">
+                    <label class="label">{{ chiamata.apparecchiatura.descrizione }}</label>
+                </div>
+            </div>
+            <div class="column is-2 is-size-1">
+                <div class="field-label is-small has-text-left">
+                    <label class="label">{{ chiamata.problema }}</label>
+                </div>
+            </div>
+            {% for elem in [ chiamata.data_apertura, chiamata.ora_apertura, chiamata.data_chiusura, chiamata.esito,
+            chiamata.fornitore.nome] %}
+                <div class="column is-1 is-size-1">
+                    <div class="field-label is-small has-text-left">
+                        <label class="label">{{ elem }}</label>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="column"></div>
+        </div>
+    {% endfor %}
+    <div class="columns">
+        <div class="column is-1">
+            <div class="field-label">
+                <!-- Left empty for spacing -->
+            </div>
+        </div>
+    </div>
+    <div class="field is-horizontal">
+        <div class="field-label is-normal ">
+            <label class="label"></label>
+        </div>
+    </div>
+{% endblock %}

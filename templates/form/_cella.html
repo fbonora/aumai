@@ -1,0 +1,31 @@
+{% macro render_cell(field) %}
+
+    {% set class_ = kwargs.pop('class_', '') %}
+    <div class="columns">
+        <div class="column is-1"></div>
+        <div class="column is-2">
+            {% if field.type in ('SubmitField','HiddenField') %}
+                <!-- nothing do do -->
+            {% else %}
+            <label>{{ field.label }}</label>
+            {% endif %}
+        </div>
+        <div class="column">
+            {% if field.type in ('InputField', 'StringField', 'DecimalField', 'DateField') %}
+                {% set class_ = 'input is-small' %}
+                {{ field(class_=class_, **kwargs)|safe }}
+            {% elif field.type in ('SelectField')%}
+                <div class="control">
+                <div class="select">
+                {% set class_ = 'select is-small' %}
+                {{ field(class_=class_, **kwargs)|safe }}
+                </div>
+                </div>
+            {% else %}
+                {{ field(class_=class_, **kwargs)|safe }}
+            {% endif %}
+
+        </div>
+        <div class="column is-1"></div>
+    </div>
+{% endmacro %}

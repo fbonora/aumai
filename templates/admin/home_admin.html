@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <nav class="panel has-background-grey-light">
+        <p class="panel-tabs">
+            <a {% if panel=='utenti' %}class="is-active"{% endif %} href="{{ url_for('main.home_admin', panel='utenti') }}">Utenti</a>
+            <a {% if panel=='versamenti' %}class="is-active"{% endif %} href="{{ url_for('main.home_admin', panel='versamenti') }}">Versamenti</a>
+            <a {% if panel=='negozi' %}class="is-active"{% endif %} href="{{ url_for('main.home_admin', panel='negozi') }}">Negozi</a>
+            <a {% if panel=='fornitori' %}class="is-active"{% endif %} href="{{ url_for('main.home_admin', panel='fornitori') }}">Fornitori</a>
+            <a {% if panel=='societa' %}class="is-active"{% endif %} href="{{ url_for('main.home_admin', panel='societa') }}">Società</a>
+            <a {% if panel=='apparecchiature' %}class="is-active"{% endif %} href="{{ url_for('main.home_admin', panel='apparecchiature') }}">Apparecchiature</a>
+        </p>
+        {% if panel == 'utenti' %}
+            {% block utenti %}
+            {% endblock utenti %}
+        {% endif %}
+        {% if panel == 'versamenti' %}
+            {% block versamenti %}
+            {% endblock versamenti %}
+            {% block modifica_versamento %}
+            {% endblock modifica_versamento %}
+        {% endif %}
+        {% if panel == 'negozi' %}
+            {% block negozi %}
+            {% endblock negozi %}
+        {% endif %}
+        {% if panel == 'fornitori' %}
+            {% block fornitori %}
+            {% endblock fornitori %}
+        {% endif %}
+
+
+        {% block nuovo_negozio %}
+        {% endblock nuovo_negozio %}
+
+        {% block societa %}
+        {% endblock societa %}
+        {% block fornitore %}
+        {% endblock fornitore %}
+        {% block apparecchiature %}
+        {% endblock apparecchiature %}
+        {% block nuova_apparecchiatura %}
+        {% endblock nuova_apparecchiatura %}
+
+    </nav>
+{% endblock %}

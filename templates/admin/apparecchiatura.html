@@ -1,0 +1,26 @@
+{% extends "admin/home_admin.html" %}
+
+{% block nuova_apparecchiatura %}
+<div class="columns">
+    <div class="column is-1"></div>
+    <div class="column is-2">
+        <div></div>
+    </div>
+    <div class="column is-1"></div>
+</div>
+</form>
+{% from "form/_cella.html" import render_cell %}
+<form method="post" action="{{ url_for('main.apparecchiatura') }}">
+    {{ render_cell(form.negozio) }}
+    {{ render_cell(form.fornitore) }}
+    {{ render_cell(form.codice) }}
+    {{ render_cell(form.descrizione) }}
+    <div class="columns">
+        <div class="column is-1"></div>
+        <div class="column is-2">
+            <div>{{ form.submit }}</div>
+        </div>
+        <div class="column is-1"></div>
+    </div>
+</form>
+{% endblock %}

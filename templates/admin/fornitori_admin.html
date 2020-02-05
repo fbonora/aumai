@@ -1,0 +1,50 @@
+{% extends "admin/home_admin.html" %}
+
+{% block fornitori %}
+<nav class="navbar is-transparent" role="navigation" aria-label="dropdown navigation">
+  <a class="navbar-item" href="{{ url_for('main.nuovo_fornitore') }}">
+    <i class="fas fa-plus-circle fa-lg" ></i>
+  </a>
+</nav>
+
+
+<div class="columns">
+    <div class="column">
+        <table class="table is-stripped is-narrow has-background-grey-light is-fullwidth">
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Telefono</th>
+                <th>Cellulare</th>
+                <th>Mail</th>
+                <th>Indirizzo</th>
+                <th>Localita'</th>
+                <th>Contratto</th>
+                <th>Descrizione</th>
+                <th colspan="2"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for fornitore in lista_fornitori %}
+            <tr>
+                <td>{{ fornitore.nome }}</td>
+                <td>{{ fornitore.telefono }}</td>
+                <td>{{ fornitore.cell }}</td>
+                <td>{{ fornitore.email }}</td>
+                <td>{{ fornitore.indirizzo }}</td>
+                <td>{{ fornitore.localita }}</td>
+                <td>{{ fornitore.contratto }}</td>
+                <td>{{ fornitore.descrizione }}</td>
+                <td>
+                        <a href="{{ url_for('main.modifica_utente', id=fornitore.id) }}" class="fas fa-edit"></a>
+                </td>
+                <td>
+                        <a href="{{ url_for('main.elimina_utente', id=fornitore.id) }}" class="fas fa-trash-alt"></a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

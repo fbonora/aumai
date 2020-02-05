@@ -1,0 +1,55 @@
+{% extends "responsabile/home_responsabile.html" %}
+
+{% block versamenti %}
+    <style type="text/css">
+        button {
+            left: 5px;
+        }
+    </style>
+
+<div class="columns">
+    <div class="column">
+        <table class="table is-stripped is-narrow has-background-grey-light is-fullwidth">
+            <thead>
+            <tr>
+                <th>Data</th>
+                <th>Negozio</th>
+                <th>Cassa</th>
+                <th>Fondo Cassa</th>
+                <th>Contante</th>
+                <th>Bancomat</th>
+                <th>Totale</th>
+                <th>Resi</th>
+                <th>Ch. Fisc.</th>
+                <th>Tot. Fisc.</th>
+                <th>Differenza</th>
+                <th>Spedito</th>
+                <th colspan="1"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for versamento in lista_versamenti %}
+            <tr>
+                <td>{{ versamento.data }}</td>
+                <td>{{ versamento.cassa.negozio.descrizione }}</td>
+                <td>{{ versamento.cassa.matricola }}</td>
+                <td>{{ versamento.fondo_cassa }}</td>
+                <td>{{ versamento.contante }}</td>
+                <td>{{ versamento.bancomat }}</td>
+                <td>{{ versamento.totale }}</td>
+                <td>{{ versamento.resi }}</td>
+                <td>{{ versamento.chiusura_fiscale }}</td>
+                <td>{{ versamento.totale_fiscale }}</td>
+                <td>{{ versamento.differenza }}</td>
+                <td>{{ versamento.spedito_agenzia }}</td>
+                <td>
+                    <a href="{{ url_for('responsabile.gestisci_chiusura_versamento', id=versamento.id)  }}" class="fas fa-edit"></a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

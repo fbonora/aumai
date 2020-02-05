@@ -1,0 +1,144 @@
+{% extends "responsabile/home_responsabile.html" %}
+
+{% block resoconto_giornaliero %}
+<style type="text/css">
+        button {
+            left: 5px;
+        }
+
+
+
+</style>
+<div class="columns">
+    <div class="column">Gestione Casse</div>
+</div>
+<div class="columns">
+    <div class="column is-1"></div>
+    <div class="column">
+        <table class="table is-striped is-narrow">
+            <thead>
+            <tr>
+                <th>Cassa</th>
+                <th>Fondo cassa</th>
+                <th>Contante</th>
+                <th>Bancomat</th>
+                <th>Totale</th>
+                <th>Resi</th>
+                <th>Chi. Fisc.</th>
+                <th>Tot. Fisc.</th>
+                <th>Differenza</th>
+                <th>Spedito</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for versamento in lista_versamenti %}
+            <tr>
+                <td>{{versamento.cassa.matricola}}</td>
+                <td>{{versamento.fondo_cassa}}</td>
+                <td>{{versamento.contante}}</td>
+                <td>{{versamento.bancomat}}</td>
+                <td>{{versamento.totale}}</td>
+                <td>{{versamento.resi}}</td>
+                <td>{{versamento.chiusura_fiscale}}</td>
+                <td>{{versamento.totale_fiscale}}</td>
+                <td>{{versamento.differenza}}</td>
+                <td>{{versamento.spedito_agenzia}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="column is-1"></div>
+</div>
+<div class="columns">
+    <div class="column">Spese</div>
+</div>
+<div class="columns">
+    <div class="column is-1"></div>
+    <div class="column">
+        <table class="table is-striped is-narrow">
+            <thead>
+            <tr>
+                <th>Dipendente</th>
+                <th>Causale</th>
+                <th>Descrizione</th>
+                <th>Importo</th>
+                <th>Km</th>
+                <th>Targa</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for spesa in lista_spese %}
+            <tr>
+                <td>{{spesa.id_cassiere}}</td>
+                <td>{{spesa.causale}}</td>
+                <td>{{spesa.descrizione}}</td>
+                <td>{{spesa.importo}}</td>
+                <td>{{spesa.km}}</td>
+                <td>{{spesa.targa}}</td>
+
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="column is-1"></div>
+</div>
+
+<div class="columns">
+    <div class="column">Resoconto Versamento</div>
+</div>
+<div class="columns">
+
+    <div class="column is-1"></div>
+    <div class="column">
+        <table class="table is-striped is-narrow">
+            <thead>
+            <tr>
+                <th>Cassa Prec.</th>
+                <th>Incasso</th>
+                <th>Spese</th>
+                <th>Cassa Fine</th>
+                <th>Versamento</th>
+                <th>Aggiungi</th>
+            </tr>
+            </thead>
+            <tbody>
+            <form method="post" action="{{ url_for('responsabile.resoconto_giornaliero') }}">
+                <tr>
+                    <td>{{form.cassa_inizio}}</td>
+                    <td>{{form.incasso}}</td>
+                    <td>{{form.spese}}</td>
+                    <td>{{form.cassa_fine}}</td>
+                    <td>{{form.versamento}}</td>
+                    <td>{{form.submit}}</td>
+                </tr>
+                <input type="hidden" name="id_resoconto" value="{{ form.id_resoconto.data }}"/>
+            </form>
+            </tbody>
+        </table>
+    </div>
+    <div class="column is-1"></div>
+</div>
+
+<script>
+            let cassa_start = document.getElementById('cassa_inizio');
+            let cassa_end = document.getElementById('cassa_fine');
+            let vers = document.getElementById('versamento');
+            let incasso = document.getElementById('incasso');
+            let spese = document.getElementById('spese');
+
+            cassa_start.oninput = function() {
+                val_in = parseFloat(cassa_start.value);
+                val_end = parseFloat(cassa_end.value);
+                vers.value = (parseFloat(incasso.value) + val_in) - (parseFloat(spese.value) + val_end);
+            }
+
+            cassa_end.oninput = function() {
+                val_in = parseFloat(cassa_start.value);
+                val_end = parseFloat(cassa_end.value);
+                vers.value = (parseFloat(incasso.value) + val_in) - (parseFloat(spese.value) + val_end);
+            }
+
+</script>
+{% endblock %}

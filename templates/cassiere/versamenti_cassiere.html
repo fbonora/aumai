@@ -1,0 +1,54 @@
+{% extends "cassiere/home_cassiere.html" %}
+
+{% block versamenti %}
+<nav class="navbar is-transparent" role="navigation" aria-label="dropdown navigation">
+  <a class="navbar-item" href="{{ url_for('cassiere.dettaglio_versamento') }}">
+    <i class="fas fa-plus-circle fa-lg" ></i>
+  </a>
+</nav>
+
+<div class="columns">
+    <div class="column">
+        <table class="table is-stripped is-narrow has-background-grey-light is-fullwidth">
+            <thead>
+            <tr>
+                <th>Data</th>
+                <th>Negozio</th>
+                <th>Cassa</th>
+                <th>Fondo Cassa</th>
+                <th>Contante</th>
+                <th>Bancomat</th>
+                <th>Totale</th>
+                <th>Resi</th>
+                <th>Ch. Fisc.</th>
+                <th colspan="2"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for versamento in lista_versamenti %}
+            <tr>
+                <td>{{ versamento.data }}</td>
+                <td>{{ versamento.cassa.negozio.descrizione }}</td>
+                <td>{{ versamento.cassa.matricola }}</td>
+                <td>{{ versamento.fondo_cassa }}</td>
+                <td>{{ versamento.contante }}</td>
+                <td>{{ versamento.bancomat }}</td>
+                <td>{{ versamento.totale }}</td>
+                <td>{{ versamento.resi }}</td>
+                <td>{{ versamento.chiusura_fiscale }}</td>
+                <td>
+                    <a href="{{ url_for('cassiere.modifica_versamento', id=versamento.id) }}" class="fas fa-edit"></a>
+                </td>
+                <td>
+                    <a href="{{ url_for('cassiere.elimina_versamento', id=versamento.id) }}" class="fas fa-trash-alt"></a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+
+{% endblock %}

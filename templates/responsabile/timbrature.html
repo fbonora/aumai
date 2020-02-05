@@ -1,0 +1,51 @@
+{% extends "responsabile/home_responsabile.html" %}
+
+{% block timbrature %}
+<nav class="navbar is-transparent" role="navigation" aria-label="dropdown navigation">
+    <a class="navbar-item" href="{{ url_for('responsabile.timbratura', panel='timbrature') }}">
+        <i class="fas fa-plus-circle fa-lg"></i>
+    </a>
+</nav>
+
+
+<div class="columns">
+    <div class="column">
+        <table class="table is-stripped is-narrow has-background-grey-light is-fullwidth">
+            <thead>
+            <tr>
+                <th>Data</th>
+                <th>Dipendente</th>
+                <th>Inizio</th>
+                <th>Fine</th>
+                <th>Pausa</th>
+                <th>Assenza</th>
+                <th>Descrizione</th>
+                <th>Ore</th>
+                <th colspan="2"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for timbrartura in lista_timbrature %}
+            <tr>
+                <td>{{ timbrartura.data }}</td>
+                <td>{{ timbrartura.dipendente.username }}</td>
+                <td>{{ timbrartura.inizio }}</td>
+                <td>{{ timbrartura.fine }}</td>
+                <td>{{ timbrartura.pausa }}</td>
+                <td>{{ timbrartura.assenza }}</td>
+                <td>{{ timbrartura.descrizione }}</td>
+                <td>{{ displayHours(timbrartura.ore_lavorate) }}</td>
+                <td><a href="{{ url_for('responsabile.modifica_timbratura', id=timbrartura.id) }}" class="fas fa-edit"></a></td>
+                <td>
+                    <a href="{{ url_for('responsabile.elimina_timbratura', id=timbrartura.id) }}" class="fas fa-trash-alt"></a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+{% endblock %}

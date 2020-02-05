@@ -1,0 +1,60 @@
+{% extends "admin/home_admin.html" %}
+
+{% block nuovo_negozio %}
+{% from "form/_cella.html" import render_cell %}
+<div class="field is-horizontal">
+    <div class="field-label is-normal ">
+        <label class="label  is-small"></label>
+    </div>
+</div>
+<form name="add_negozio" method="post" action="{{ url_for('main.negozio') }}">
+    <div class="columns">
+        <div class="columns is-1"></div>
+        <div class="column">{{ render_cell(form.nome) }}</div>
+        <div class="column">{{ render_cell(form.societa) }}</div>
+        <div class="columns is-1"></div>
+    </div>
+    <div class="columns">
+        <div class="columns is-1"></div>
+        <div class="column">{{ render_cell(form.localita) }}</div>
+        <div class="column">{{ render_cell(form.indirizzo) }}</div>
+        <div class="columns is-1"></div>
+    </div>
+    <div class="columns">
+        <div class="columns is-1"></div>
+        <div class="column">{{ render_cell(form.cassa1) }}</div>
+        <div class="column">{{ render_cell(form.cassa2) }}</div>
+        <div class="columns is-1"></div>
+    </div>
+    <div class="columns">
+        <div class="columns is-1"></div>
+        <div class="column">{{ render_cell(form.cassa3) }}</div>
+        <div class="column">{{ render_cell(form.cassa4) }}</div>
+        <div class="columns is-1"></div>
+    </div>
+    <div class="columns">
+        <div class="columns is-1"></div>
+        <div class="column">{{ render_cell(form.cassa5) }}</div>
+        <div class="column">{{ render_cell(form.cassa6) }}</div>
+        <div class="columns is-1"></div>
+    </div>
+    <div class="columns">
+        <div class="columns is-1"></div>
+        <div class="column">{{ render_cell(form.cassa7) }}</div>
+        <div class="column">{{ render_cell(form.cassa8) }}</div>
+        <div class="columns is-1"></div>
+    </div>
+    <div class="columns">
+        <div class="columns is-1"></div>
+        <div class="column">{{ render_cell(form.cassa9) }}</div>
+        <div class="column">{{ render_cell(form.cassa10) }}</div>
+        <div class="columns is-1"></div>
+    </div>
+
+    <div class="columns">
+        <div class="columns is-1"></div>
+        <div class="column is-1">{{ render_cell(form.submit) }}</div>
+        <div class="column is-1">{{ render_cell(form.cancel) }}</div>
+    </div>
+</form>
+{% endblock %}

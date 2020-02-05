@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Aumai</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"/>
+    <link href="/static/fontawesome-free-5.12.0-web/css/fontawesome.css" rel="stylesheet">
+    <link href="/static/fontawesome-free-5.12.0-web/css/brands.css" rel="stylesheet">
+    <link href="/static/fontawesome-free-5.12.0-web/css/solid.css" rel="stylesheet">
+</head>
+    <style type="text/css">
+        button {
+            left: 5px;
+        }
+    </style>
+<body>
+<section class="hero is-fullheight">
+    <div class="hero-head ">
+        <nav class="navbar has-background-grey-light">
+            <div class="container ">
+                <div id="navbarMenuHero" class="navbar-menu">
+                    <div class="navbar-brand">
+                        <a class="navbar-item is-expanded" href="https://www.aumai.it">
+                            <img src="/static/logo_aumai.png"
+                                 alt="Aumai" width="80" height="28">
+                        </a>
+                    </div>
+                    <div class="navbar-begin is-mobile">
+                        {% if current_user.is_authenticated %}
+                            <div class="navbar-item">
+                                <div class="container is-fluid ">
+                                    <b>Punto vendita:</b>{% if negozio %} {{ negozio.descrizione }} {% endif %}<br>
+                                    <b>Indirizzo:</b>{% if negozio %} {{ negozio.indirizzo }} {% endif %}<br>
+                                    Operatore: {{ current_user.name }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="navbar-end is-expanded">
+                        <a href="{{ url_for('main.index') }}" class="navbar-item">Home</a>
+                        {% if not current_user.is_authenticated %}
+                            <a href="{{ url_for('auth.login') }}" class="navbar-item">Login</a>
+                        {% endif %}
+                        {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('auth.logout') }}" class="navbar-item">Logout</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="hero-body has-background-grey-lighter">
+        <div class="container has-text-left is-widescreen">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class=flashes>
+                        {% for message in messages %}
+                            <li class="subtitle has-text-danger">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <div class="hero-foot">
+
+        <div class="content has-text-centered is-small">
+            <p>
+                Powerd by <a href="https://www.cbitsrl.it">CBIT s.r.l.</a> - Tel. 347 8900089 - Fax 035 532026 -
+                info@cbitsrl.it
+            </p>
+        </div>
+
+    </div>
+</section>
+</body>
+</html>

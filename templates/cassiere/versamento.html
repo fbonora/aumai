@@ -1,0 +1,98 @@
+{% extends "cassiere/home_cassiere.html" %}
+
+{% block resoconto %}
+    <nav class="panel has-background-info">
+        <div class="field is-horizontal">
+            <div class="field-label is-normal ">
+                <label class="label has-text-white"></label>
+            </div>
+        </div>
+
+        <form name="add_versamento" method="post">
+            <div class="field is-horizontal">
+                <div class="field-label is-normal is-small">
+                    <label class="label has-text-white ">Operatore</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control">
+                            <input class="input is-small" type="text" placeholder="{{ current_user.name }}" disabled>
+                        </p>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal ">
+                        <label class="label has-text-white"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal  is-small">
+                <div class="field-label is-small  is-normal">
+                    <label class="label has-text-white">Cassa</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control">
+                            <select name="cassa">
+                                <option></option>
+                                {% for cassa in negozio.casse %}
+                                    <option>{{ cassa.matricola }}</option>
+                                {% endfor %}
+                            </select>
+
+                        </p>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal ">
+                        <label class="label has-text-white"></label>
+                    </div>
+                </div>
+            </div>
+
+            {% for field in form %}
+                {% if field.name != 'cassa' %}
+                    <div class="field is-horizontal">
+                        <div class="field-label is-small ">
+                            <label class="label  has-text-white">{{ field.label }}</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <p class="control">
+                                    <input class="input is-small" name="{{ field.name }}" type="text"
+                                           placeholder="euro">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal ">
+                                <label class="label has-text-white is-small"></label>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+            <div class="field is-horizontal">
+                <div class="field-label">
+                    <!-- Left empty for spacing -->
+                </div>
+                <div class="field-body  is-horizontal">
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button class="button is-small is-primary" formaction="{{ url_for('cassiere.versamento') }}">
+                                Esegui
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal ">
+                    <label class="label has-text-white"></label>
+                </div>
+            </div>
+        </form>
+    </nav>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% macro render_cell(field) %}
+    <div class="field-label is-small  is-normal">
+        <label class="label has-text-white">{{ field.label }}</label>
+    </div>
+    <div class="field-body">
+        <div class="field">
+            <p class="control">
+                {{ field(**kwargs)|safe }}
+            </p>
+        </div>
+    </div>
+{% endmacro %}

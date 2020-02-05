@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="tile is-ancestor">
+        <div class="tile is-vertical is-12">
+            <div class="tile">
+                <div class="tile  is-parent ">
+                    <article class="tile is-child notification has-background-grey-light is-pulled-left">
+                        <p class="title">Amministratore</p>
+                        <p class="subtitle">Utente con i permessi di gestire:</p>
+                        <ul>
+                            <li><a href="{{ url_for('main.home_admin', panel='utenti') }}">Dipendenti</a></li>
+                            <li><a href="{{ url_for('main.home_admin', panel='versamenti') }}">Versamenti</a></li>
+                            <li><a href="{{ url_for('main.home_admin', panel='negozi') }}">Negozi</a></li>
+                            <li><a href="{{ url_for('main.home_admin', panel='fornitori') }}">Fornitori</a></li>
+                            <li><a href="{{ url_for('main.home_admin', panel='apparecchiature') }}">Apparecchiature</a></li>
+                            <li><a href="{{ url_for('main.home_admin', panel='societa') }}">Societa</a></li>
+                            <li>Spese</li>
+                            <li><a href="{{ url_for('reports.report') }}">Report</a></li>
+                        </ul>
+                    </article>
+                </div>
+                <div class="tile  is-parent ">
+                    <article class="tile is-child notification has-background-grey-light is-pulled-left">
+                        <p class="title">Responsabile</p>
+                        <p class="subtitle">Responsabile negozio con i permessi di gestire:</p>
+                        <ul>
+                            <li><a href="{{ url_for('responsabile.home_responsabile', panel='versamenti') }}">Chiusure Versamenti</a></li>
+                            <li><a href="{{ url_for('responsabile.home_responsabile', panel='timbrature') }}">Timbrature</a></li>
+                            <li><a href="{{ url_for('responsabile.home_responsabile', panel='spese') }}">Spese</a></li>
+                            <li><a href="{{ url_for('responsabile.home_responsabile', panel='chiamate') }}">Chiamate</a></li>
+                        </ul>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child notification has-background-grey-light">
+                        <p class="title">Cassiere</p>
+                        <p class="subtitle">Dipendente di un negozio con i permessi di inserire/modificare:</p>
+                        <ul>
+                            <li><a href="{{ url_for('cassiere.home_cassiere', panel='versamenti') }}">Versamenti</a></li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

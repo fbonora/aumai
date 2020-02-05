@@ -1,0 +1,38 @@
+{% extends "admin/home_admin.html" %}
+
+{% block societa %}
+<nav class="navbar is-transparent" role="navigation" aria-label="dropdown navigation">
+    <a class="navbar-item" href="{{ url_for('main.index') }}">
+        <i class="fas fa-plus-circle fa-lg"></i>
+    </a>
+</nav>
+<div class="columns">
+    <div class="column">
+        <table class="table is-stripped is-narrow has-background-grey-light is-fullwidth">
+            <thead>
+            <tr>
+                <th colspan="2"></th>
+                <th>Codice</th>
+                <th>Nome</th>
+                <th colspan="2"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for societa in lista_societa %}
+            <tr>
+                <td colspan="2">   </td>
+                <td>{{ societa.id }}</td>
+                <td>{{ societa.name }}</td>
+                <td>
+                        <a href="{{ url_for('main.modifica_societa', id=societa.id) }}" class="fas fa-edit"></a>
+                </td>
+                <td>
+                        <a href="{{ url_for('main.elimina_societa', id=societa.id) }}" class="fas fa-trash-alt"></a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

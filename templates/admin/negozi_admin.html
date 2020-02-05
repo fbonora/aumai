@@ -1,0 +1,40 @@
+{% extends "admin/home_admin.html" %}
+
+{% block negozi %}
+<nav class="navbar is-transparent" role="navigation" aria-label="dropdown navigation">
+    <a class="navbar-item" href="{{ url_for('main.negozio') }}">
+        <i class="fas fa-plus-circle fa-lg"></i>
+    </a>
+</nav>
+
+<div class="columns">
+    <div class="column">
+        <table class="table is-stripped is-narrow has-background-grey-light is-fullwidth">
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Località</th>
+                <th>Indirizzo</th>
+                <th>Società</th>
+                <th colspan="2"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for negozio in lista_negozi %}
+            <tr>
+                <td>{{ negozio.descrizione }}</td>
+                <td>{{ negozio.localita }}</td>
+                <td>{{ negozio.indirizzo }}</td>
+                <td>{{ negozio.societa.name }}</td>
+                <td><a href="{{ url_for('main.modifica_negozio', id=negozio.id) }}" class="fas fa-edit"></a></td>
+                <td>
+                    <a href="{{ url_for('main.elimina_negozio', id=negozio.id) }}" class="fas fa-trash-alt"></a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

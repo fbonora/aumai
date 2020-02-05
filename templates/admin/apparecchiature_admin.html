@@ -1,0 +1,55 @@
+{% extends "admin/home_admin.html" %}
+
+{% block apparecchiature %}
+<nav class="navbar is-transparent" role="navigation" aria-label="dropdown navigation">
+  <a class="navbar-item" href="{{ url_for('main.apparecchiatura') }}">
+    <i class="fas fa-plus-circle fa-lg" ></i>
+  </a>
+  <div class="navbar-item has-dropdown is-hoverable">
+    <a class="navbar-link">
+      <i class="fas fa-folder-open fa-lg" ><label class="label is-small">Negozi</label></i>
+    </a>
+
+    <div class="navbar-dropdown is-boxed">
+        {% for negozio in lista_negozi %}
+      <a class="navbar-item" href="{{ url_for('main.home_admin', panel='apparecchiature', id=negozio.id )}}">
+        {{ negozio.descrizione }}
+      </a>
+        {% endfor %}
+    </div>
+  </div>
+</nav>
+
+<div class="columns">
+    <div class="column">
+        <table class="table is-stripped is-narrow has-background-grey-light is-fullwidth">
+            <thead>
+            <tr>
+                <th>Negozio</th>
+                <th>Codice</th>
+                <th>Descrizione</th>
+                <th>Fornitore</th>
+                <th colspan="2"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for apparecchiatura in lista_apparecchiature %}
+            <tr>
+                <td>{{ apparecchiatura.negozio.descrizione }}</td>
+                <td>{{ apparecchiatura.codice_app.descrizione }}</td>
+                <td>{{ apparecchiatura.descrizione }}</td>
+                <td>{{ apparecchiatura.fornitore.nome }}</td>
+                <td>
+                        <a href="{{ url_for('main.modifica_apparecchiatura', id=apparecchiatura.id) }}" class="fas fa-edit"></a>
+                </td>
+                <td>
+                        <a href="{{ url_for('main.elimina_apparecchiatura', id=apparecchiatura.id) }}" class="fas fa-trash-alt"></a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

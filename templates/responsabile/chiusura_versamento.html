@@ -1,0 +1,75 @@
+{% extends "responsabile/home_responsabile.html" %}
+
+{% block chiusura_versamento %}
+
+<style type="text/css" xmlns="http://www.w3.org/1999/html">
+        input {
+            width: 80px;
+        }
+
+
+
+</style>
+
+<div class="field"></div>
+{% from "form/_cella.html" import render_cell %}
+<form method="post" action="{{ url_for('responsabile.salva_chiusura_versamento') }}">
+                    <table class="table is-stripped is-narrow has-background-grey-light is-fullwidth">
+                        <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Cassa</th>
+                            <th>Fondo cassa</th>
+                            <th>Contante</th>
+                            <th>Bancomat</th>
+                            <th>Totale</th>
+                            <th>Resi</th>
+                            <th>Chiusura Fiscale</th>
+                            <th>Totale Fiscale</th>
+                            <th>Differenza</th>
+                            <th>Spedito</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ form.data }}</td>
+                                 <td>{{ form.cassa }}</td>
+                                <td>{{ form.fondo_cassa }}</td>
+                                <td>{{ form.contante }}</td>
+                                <td>{{ form.bancomat }}</td>
+                                <td>{{ form.totale }}</td>
+                                <td>{{ form.resi }}</td>
+                                <td id="chiusura_fiscale">{{ form.chiusura_fiscale }}</td>
+                                <td>{{ form.totale_fiscale }}</td>
+                                <td id="differenza">{{ form.differenza }}</td>
+                                <td>{{ form.spedito }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+    <input type="hidden" name="id_versamento" value="{{ form.id_versamento }}"/>
+    {{ render_cell(form.submit) }}
+
+</form>
+<div class="column"></div>
+</div>
+
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal ">
+        <label class="label has-text-white"></label>
+    </div>
+</div>
+
+<script>
+            let tot_fiscale = document.getElementById('totale_fiscale');
+            let diff = document.getElementById('differenza');
+            let chiusura_fisc = document.getElementById('chiusura_fiscale');
+
+            tot_fiscale.oninput = function() {
+                tot = parseFloat(tot_fiscale.value);
+                chi_fisc =parseFloat(chiusura_fisc.innerText);
+                diff.innerText = tot - chi_fisc;
+            }
+</script>
+{% endblock %}

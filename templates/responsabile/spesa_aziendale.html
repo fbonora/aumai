@@ -1,0 +1,57 @@
+{% extends "responsabile/home_responsabile.html" %}
+
+{% block spesa_aziendale %}
+<div class="field"></div>
+{% from "form/_cella.html" import render_cell %}
+<form method="post" action="{{ url_for('responsabile.spesa_aziendale', id=form.id_spesa) }}">
+    <div class="columns">
+        <div class="column is-1"></div>
+        <div class="column">
+            {{ render_cell(form.data) }}
+        </div>
+        <div class="column">
+            {{ render_cell(form.dipendente) }}
+        </div>
+        <div class="column is-1"></div>
+    </div>
+    <div class="columns">
+        <div class="column is-1"></div>
+        <div class="column">
+            {{ render_cell(form.cassa) }}
+        </div>
+        <div class="column">
+            {{ render_cell(form.causale) }}
+        </div>
+        <div class="column is-1"></div>
+    </div>
+
+
+    <div class="columns">
+        <div class="column is-1"></div>
+        <div class="column">
+            {{ render_cell(form.descrizione) }}
+        </div>
+        <div class="column">
+            {{ render_cell(form.importo) }}
+        </div>
+        <div class="column is-1"></div>
+    </div>
+    <div class="columns">
+        <div class="column is-1"></div>
+        <div class="column">
+            {{ render_cell(form.km_auto) }}
+        </div>
+        <div class="column">
+            {{ render_cell(form.targa_auto) }}
+        </div>
+        <div class="column is-1"></div>
+    </div>
+    <div class="columns">
+        <div class="column is-1"></div>
+        <div class="column is-1">
+            {{ render_cell(form.submit) }}
+        </div>
+                <div class="column is-1"></div>
+    </div>
+</form>
+{% endblock %}

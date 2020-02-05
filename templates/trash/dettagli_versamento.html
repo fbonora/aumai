@@ -1,0 +1,292 @@
+{% extends "responsabile/home_responsabile.html" %}
+{% from "form/_cella.html" import render_cell %}
+{% block dettagli_versamento %}
+    <style type="text/css">
+        input {
+            width: 80px;
+        }
+    </style>
+    <form method="post" action="{{ url_for('main.dettaglio_versamento') }}">
+        <div class="columns">
+            <div class="column is-3" name="cassa">
+                <div>Selezionare la cassa</div>
+                <table class="table is-stripped is-narrow is-fullwidth">
+                    <tr>
+                        <td>{{ form.cassa.label }}</td>
+                        <td></td>
+                        <td>{{ form.cassa }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.fondo_cassa.label }}</td>
+                        <td>€</td>
+                        <td>{{ form.fondo_cassa }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.bancomat.label }}</td>
+                        <td>€</td>
+                        <td>{{ form.bancomat }}</td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="column is-3" name="versamento">
+                <div>Contanti</div>
+
+                <div class="table-container">
+                    <table class="table is-stripped is-narrow is-fullwidth">
+                        <thead>
+                        <tr>
+                            <th><abbr title="Contante">Contante</abbr></th>
+                            <th><abbr title="Numero">Numero</abbr></th>
+                            <th><abbr title="Totale">Totale</abbr></th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <th><abbr title="Contante">Totale</abbr></th>
+                        <th>€</th>
+                        <th>{{ form.totale_contanti.data }}</th>
+                        </tfoot>
+                        <tbody>
+                        {% for filed in form %}
+                            {% if filed.type in ['SelectField','SubmitField', 'HiddenField'] %}
+                            {% elif filed.name in ['fondo_cassa', 'bancomat'] %}
+                            {% elif 'v_' in filed.name %}
+                                <tr>
+                                    <th>{{ filed.label }}</th>
+                                    <td>{{ filed }}</td>
+                                    {% if 'v_001' in filed.name %}
+                                        <td>{{ (filed.data/100) }}</td>
+                                    {% elif filed.name == 'v_002' %}
+                                        <td>{{ (filed.data/50) }}</td>
+                                    {% elif filed.name == 'v_005' %}
+                                        <td>{{ (filed.data/20) }}</td>
+                                    {% elif filed.name == 'v_010' %}
+                                        <td>{{ (filed.data/10) }}</td>
+                                    {% elif filed.name == 'v_020' %}
+                                        <td>{{ (filed.data/5) }}</td>
+                                    {% elif filed.name == 'v_050' %}
+                                        <td>{{ (filed.data/2) }}</td>
+                                    {% elif filed.name == 'v_1' %}
+                                        <td>{{ (filed.data) }}</td>
+                                    {% elif filed.name == 'v_2' %}
+                                        <td>{{ (filed.data*2) }}</td>
+                                    {% elif filed.name == 'v_5' %}
+                                        <td>{{ (filed.data*5) }}</td>
+                                    {% elif filed.name == 'v_10' %}
+                                        <td>{{ (filed.data*10) }}</td>
+                                    {% elif filed.name == 'v_20' %}
+                                        <td>{{ (filed.data*20) }}</td>
+                                    {% elif filed.name == 'v_50' %}
+                                        <td>{{ (filed.data*50) }}</td>
+                                    {% elif filed.name == 'v_100' %}
+                                        <td>{{ (filed.data*100) }}</td>
+                                    {% elif filed.name == 'v_200' %}
+                                        <td>{{ (filed.data*200) }}</td>
+                                    {% elif filed.name == 'v_500' %}
+                                        <td>{{ (filed.data*500) }}</td>
+                                    {% endif %}
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="column is-3" name="reso">
+                <div>Resi</div>
+                <div class="table-container">
+                    <table class="table is-stripped is-narrow is-fullwidth">
+                        <thead>
+                        <tr>
+                            <th><abbr title="Ora">Ora (hh:mm)</abbr></th>
+                            <th><abbr title="Scontrino">Scontrino</abbr></th>
+                            <th><abbr title="Importo">Importo</abbr></th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th><abbr title="numero">€</abbr></th>
+                            <th><abbr title="numero_scontrino"></abbr></th>
+                            <th><abbr title="valore">{{ form.totale_resi.data }}</abbr></th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                            <tr>
+                                <td>{{ form.ora_reso1 }}</td>
+                                <td>{{ form.scontrino_reso1 }}</td>
+                                <td>{{ form.imp_reso1 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.ora_reso2 }}</td>
+                                <td>{{ form.scontrino_reso2 }}</td>
+                                <td>{{ form.imp_reso2 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.ora_reso3 }}</td>
+                                <td>{{ form.scontrino_reso3 }}</td>
+                                <td>{{ form.imp_reso3 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.ora_reso4 }}</td>
+                                <td>{{ form.scontrino_reso4 }}</td>
+                                <td>{{ form.imp_reso4 }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>{{ form.ora_reso5 }}</td>
+                                <td>{{ form.scontrino_reso5 }}</td>
+                                <td>{{ form.imp_reso5 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.ora_reso6 }}</td>
+                                <td>{{ form.scontrino_reso6 }}</td>
+                                <td>{{ form.imp_reso6 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.ora_reso7 }}</td>
+                                <td>{{ form.scontrino_reso7 }}</td>
+                                <td>{{ form.imp_reso7 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.ora_reso8 }}</td>
+                                <td>{{ form.scontrino_reso8 }}</td>
+                                <td>{{ form.imp_reso8 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.ora_reso9 }}</td>
+                                <td>{{ form.scontrino_reso9 }}</td>
+                                <td>{{ form.imp_reso9 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.ora_reso10 }}</td>
+                                <td>{{ form.scontrino_reso10 }}</td>
+                                <td>{{ form.imp_reso10 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.ora_reso11 }}</td>
+                                <td>{{ form.scontrino_reso11 }}</td>
+                                <td>{{ form.imp_reso11 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.ora_reso12 }}</td>
+                                <td>{{ form.scontrino_reso12 }}</td>
+                                <td>{{ form.imp_reso12 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.ora_reso13 }}</td>
+                                <td>{{ form.scontrino_reso13 }}</td>
+                                <td>{{ form.imp_reso13 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.ora_reso14 }}</td>
+                                <td>{{ form.scontrino_reso14 }}</td>
+                                <td>{{ form.imp_reso14 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.ora_reso15 }}</td>
+                                <td>{{ form.scontrino_reso15 }}</td>
+                                <td>{{ form.imp_reso15 }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="column is-3" name="prelievo">
+                <div class="table-container">
+                    <div>Prelievi</div>
+                    <table class="table is-stripped is-narrow is-fullwidth">
+                        <thead>
+                        <tr>
+                            <th><abbr title="Dipendente">Dipendente</abbr></th>
+                            <th><abbr title="Importo">Importo</abbr></th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th><abbr title="numero">€</abbr></th>
+                            <th><abbr title="valore">{{ form.totale_prelievo.data }}</abbr></th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                            <tr>
+                                <td>{{ form.dipendente_prelievo1 }}</td>
+                                <td>{{ form.imp_prelievo1 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.dipendente_prelievo2 }}</td>
+                                <td>{{ form.imp_prelievo2 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.dipendente_prelievo3 }}</td>
+                                <td>{{ form.imp_prelievo3 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.dipendente_prelievo4 }}</td>
+                                <td>{{ form.imp_prelievo4 }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>{{ form.dipendente_prelievo5 }}</td>
+                                <td>{{ form.imp_prelievo5 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.dipendente_prelievo6 }}</td>
+                                <td>{{ form.imp_prelievo6 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.dipendente_prelievo7 }}</td>
+                                <td>{{ form.imp_prelievo7 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.dipendente_prelievo8 }}</td>
+                                <td>{{ form.imp_prelievo8 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.dipendente_prelievo9 }}</td>
+                                <td>{{ form.imp_prelievo9 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.dipendente_prelievo10 }}</td>
+                                <td>{{ form.imp_prelievo10 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.dipendente_prelievo11 }}</td>
+                                <td>{{ form.imp_prelievo11 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.dipendente_prelievo12 }}</td>
+                                <td>{{ form.imp_prelievo12 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.dipendente_prelievo13 }}</td>
+                                <td>{{ form.imp_prelievo13 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.dipendente_prelievo14 }}</td>
+                                <td>{{ form.imp_prelievo14 }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.dipendente_prelievo15 }}</td>
+                                <td>{{ form.imp_prelievo15 }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column" name="resoconto">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>{{ form.calcola }}</td>
+                        <td>{{ form.aggiungi }}</td>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </form>
+{% endblock %}

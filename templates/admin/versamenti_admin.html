@@ -1,0 +1,82 @@
+{% extends "admin/home_admin.html" %}
+
+{% block versamenti %}
+<nav class="navbar is-transparent" role="navigation" aria-label="dropdown navigation">
+
+    <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+            <i class="fas fa-folder-open fa-lg"><label class="label is-small">Negozi</label></i>
+        </a>
+
+        <div class="navbar-dropdown is-boxed">
+            {% for negozio in lista_negozi %}
+            <a id="negozio_item" class="navbar-item" href="{{ url_for('main.home_admin', panel='versamenti', id=negozio.id )}}">
+                {{ negozio.descrizione }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+            <i class="fas fa-folder-open fa-lg"><label class="label is-small">Intervallo in giorni</label></i>
+        </a>
+        <div class="navbar-dropdown is-boxed">
+            {% for item in [1,2,3,4,5,6,7] %}
+            <a id="interval_item" class="navbar-item" href="{{ url_for('main.home_admin', panel='versamenti', id=0, interval=item )}}">
+                {{ item }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</nav>
+
+
+<div class="columns">
+    <div class="column">
+        <table class="table is-stripped is-narrow has-background-grey-light is-fullwidth">
+            <thead>
+            <tr>
+                <th>Data</th>
+                <th>Negozio</th>
+                <th>Cassa</th>
+                <th>Fondo Cassa</th>
+                <th>Contante</th>
+                <th>Bancomat</th>
+                <th>Totale</th>
+                <th>Resi</th>
+                <th>Ch. Fisc.</th>
+                <th>Tot. Fisc.</th>
+                <th>Differenza</th>
+                <th>Spedito</th>
+                <th colspan="2"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for versamento in lista_versamenti %}
+            <tr>
+                <td>{{ versamento.data }}</td>
+                <td>{{ versamento.cassa.negozio.descrizione }}</td>
+                <td>{{ versamento.cassa.matricola }}</td>
+                <td>{{ versamento.fondo_cassa }}</td>
+                <td>{{ versamento.contante }}</td>
+                <td>{{ versamento.bancomat }}</td>
+                <td>{{ versamento.totale }}</td>
+                <td>{{ versamento.resi }}</td>
+                <td>{{ versamento.chiusura_fiscale }}</td>
+                <td>{{ versamento.totale_fiscale }}</td>
+                <td>{{ versamento.differenza }}</td>
+                <td>{{ versamento.spedito_agenzia }}</td>
+                <td>
+                    <a href="{{ url_for('main.modifica_versamento', id=versamento.id) }}" class="fas fa-edit"></a>
+                </td>
+                <td>
+                    <a href="{{ url_for('main.elimina_versamento', id=versamento.id) }}" class="fas fa-trash-alt"></a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

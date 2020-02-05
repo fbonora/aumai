@@ -1,0 +1,34 @@
+{% extends "responsabile/home_responsabile.html" %}
+
+{% block chiamate %}
+<div class="columns">
+    <div class="column is-1"></div>
+    <div class="column is-2">
+        <div></div>
+    </div>
+    <div class="column is-1"></div>
+</div>
+</form>
+{% from "form/_cella.html" import render_cell %}
+<form method="post" action="{{ url_for('responsabile.chiudi_chiamata', id=form.chiamata_id.data) }}">
+
+    {{ render_cell(form.data_apertura) }}
+
+    {{ render_cell(form.apparecchiatura) }}
+    {{ render_cell(form.fornitore) }}
+    {{ render_cell(form.contatto) }}
+    {{ render_cell(form.descrizione) }}
+    {{ render_cell(form.data_chiusura) }}
+    {{ render_cell(form.ora_inizio) }}
+    {{ render_cell(form.ora_fine) }}
+    {{ render_cell(form.esito) }}
+
+    <div class="columns">
+        <div class="column is-1"></div>
+        <div class="column is-2">
+            <div>{{ form.submit }}</div>
+        </div>
+        <div class="column is-1"></div>
+    </div>
+</form>
+{% endblock %}

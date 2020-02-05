@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<nav class="panel has-background-grey-light">
+    <p class="panel-tabs">
+        <a {% if panel=='versamenti' %}class="is-active" {% endif %}
+           href="{{ url_for('cassiere.home_cassiere', panel='versamenti') }}">Versamenti</a>
+    </p>
+
+    {% block versamenti %}
+    {% endblock versamenti %}
+
+    {% block resoconto %}
+    {% endblock resoconto %}
+
+    {% block dettagli_versamento %}
+    {% endblock dettagli_versamento %}
+
+</nav>
+{% endblock %}

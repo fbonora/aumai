@@ -1,0 +1,72 @@
+{% extends "admin/home_admin.html" %}
+{% from 'form/_cella.html' import render_cell %}
+
+{% block content %}
+<div class="panel ">
+    <p class="panel-tabs">
+        <a href="{{ url_for('main.home_admin', panel='utenti') }}">Elenco Utenti</a>
+        <a {% if ruolo=='Cassiere' %}class="is-active"{% endif %}
+        href="{{ url_for('main.utente', role='cassiere') }}">Cassiere</a>
+        <a {% if ruolo=='operatore' %}class="is-active"{% endif %}
+        href="{{ url_for('main.utente', role='operatore') }}">Operatore</a>
+        <a {% if ruolo=='Amministratore' %}class="is-active"{% endif %} href="{{ url_for('main.utente', role='Amministratore')
+        }}">Amministratore</a>
+    </p>
+    <div class="panel has-background-grey-light">
+        <div class="field"></div>
+        <form name="add_utente" method="post">
+            <div class="field">
+                {{ render_cell(form.username) }}
+            </div>
+            <div class="field">
+                {{ render_cell(form.password) }}
+            </div>
+            <div class="field">
+                {{ render_cell(form.nome) }}
+            </div>
+            <div class="field">
+                {{ render_cell(form.cognome) }}
+            </div>
+            <div class="field">
+                {{ render_cell(form.residenza) }}
+            </div>
+            <div class="field">
+                {{ render_cell(form.banca) }}
+            </div>
+            <div class="field">
+                {{ render_cell(form.iban) }}
+            </div>
+            <div class="field">
+                {{ render_cell(form.base) }}
+            </div>
+            <div class="field">
+                {{ render_cell(form.stato) }}
+            </div>
+            <div class="field">
+                {% if ruolo in ['Cassiere','Responsabile negozio'] %}
+                {{ render_cell(form.negozio) }}
+                {% endif %}
+
+            </div>
+            <div class="field is-grouped">
+                <div class="control">
+                    <button name="aggiungi" class="button is-small "
+                            formaction="{{ url_for('main.utente', role=ruolo) }}">
+                        Aggiungi
+                    </button>
+                </div>
+                <div class="control">
+                    <button name="cancel" class="button is-small "
+                            formaction="{{ url_for('main.utente' , role=ruolo) }}">
+                        Cancella
+                    </button>
+                </div>
+            </div>
+
+        </form>
+                     <div class="field"></div>
+    </div>
+
+    </nav>
+</div>
+{% endblock %}

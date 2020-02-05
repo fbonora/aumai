@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<nav class="panel has-background-grey-light">
+    <p class="panel-tabs">
+        <a {% if panel=='resoconto' %}class="is-active" {% endif %}
+           href="{{ url_for('responsabile.home_responsabile', panel='resoconto') }}">Resoconto</a>
+        <a {% if panel=='versamenti' %}class="is-active" {% endif %}
+           href="{{ url_for('responsabile.home_responsabile', panel='versamenti') }}">Versamenti</a>
+        <a {% if panel=='timbrature' %}class="is-active" {% endif %}
+           href="{{ url_for('responsabile.home_responsabile', panel='timbrature') }}">Timbrature</a>
+        <a {% if panel=='spese' %}class="is-active" {% endif %}
+           href="{{ url_for('responsabile.home_responsabile', panel='spese') }}">Spese</a>
+        <a {% if panel=='chiamate' %}class="is-active" {% endif %}
+           href="{{ url_for('responsabile.home_responsabile', panel='chiamate') }}">Chiamate</a>
+    </p>
+    <p class="panel-tabs">
+        {% if panel == 'versamenti' %}
+        {% elif panel == 'spese' %}
+        <!--<a href="{{ url_for('responsabile.spesa_aziendale', panel='spese') }}">Spesa Aziendale</a> -->
+
+        {% elif panel == 'timbrature' %}
+        <!--<a href="{{ url_for('responsabile.timbratura', panel='timbrature') }}">Inserisci timbratura</a> -->
+    </p>
+    {% elif panel == 'chiamate' %}
+    <a href="{{ url_for('responsabile.chiamata') }}">Nuova Chiamata</a>
+    <a {% if subpanel=='aperte' %}class="is-active" {% endif %} href="{{ url_for('responsabile.home_responsabile', panel='chiamate', subpanel='aperte') }}">Chiamate Aperte</a>
+    <a {% if subpanel=='chiuse' %}class="is-active" {% endif %} href="{{ url_for('responsabile.home_responsabile', panel='chiamate', subpanel='chiuse') }}">Chiamate Chiuse</a>
+    </p>
+    {% endif %}
+
+
+    {% block resoconto_giornaliero %}
+    {% endblock resoconto_giornaliero %}
+    {% block versamenti %}
+    {% endblock versamenti %}
+    {% block chiusura_versamento %}
+    {% endblock chiusura_versamento %}
+
+    {% block resoconto %}
+    {% endblock resoconto %}
+
+    {% block dettagli_versamento %}
+    {% endblock dettagli_versamento %}
+
+    {% block spese %}
+    {% endblock spese %}
+    {% block spesa_aziendale %}
+    {% endblock spesa_aziendale %}
+    {% block spesa_personale %}
+    {% endblock spesa_personale %}
+
+    {% block chiamate %}
+    {% endblock chiamate %}
+
+    {% block timbrature %}
+    {% endblock timbrature %}
+    {% block timbratura %}
+    {% endblock timbratura %}
+
+
+</nav>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "responsabile/home_responsabile.html" %}
+
+{% block content %}
+    {% from "form/_cella.html" import render_cell %}
+    <form method="post" action="{{ url_for('main.spese') }}">
+        {{ render_cell(form.dipendente) }}
+        {{ render_cell(form.tipo_spesa) }}
+        {{ render_cell(form.descrizione) }}
+        {{ render_cell(form.importo) }}
+        {{ render_cell(form.km_auto) }}
+        {{ render_cell(form.targa_auto) }}
+
+        <div>{{ form.submit }}</div>
+    </form>
+{% endblock %}
